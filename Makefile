@@ -1,4 +1,4 @@
-ZIM_DIR=${HOME}/src/github.com/ulmefors/kiwix-tools/zim
+ZIM_DIR=$(shell pwd)/zim
 IMAGE=kiwix/kiwix-serve:latest
 NAME=kiwix-serve
 PORT=8181
