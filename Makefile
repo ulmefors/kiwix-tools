@@ -2,6 +2,7 @@ ZIM_DIR=$(shell pwd)/zim
 IMAGE=kiwix/kiwix-serve:latest
 NAME=kiwix-serve
 PORT=8181
+CONTAINER=$(shell docker ps -aqf name=${NAME})
 
 build-arm:
 	docker build ./docker/server -t ${IMAGE} --build-arg ARCH="arm32v7/"
@@ -9,9 +10,12 @@ build-arm:
 run:
 	docker run --name ${NAME} -v ${ZIM_DIR}:/data -p ${PORT}:80 ${IMAGE} $(shell ls ${ZIM_DIR})
 
+start:
+	docker start ${CONTAINER}
+
 stop:
-	docker stop $(shell docker ps -qf "name=${NAME}")
+	docker stop $(CONTAINER)
 
 remove:
-	docker rm $(shell docker ps -aqf "name=${NAME}")
+	docker rm $(CONTAINER)
 
